@@ -1,0 +1,6 @@
+#FileLock
+#Tue Sep 05 19:13:38 BRT 2023
+server=192.168.56.1\:51563
+hostName=PA508MICRO01.fiap.com.br
+method=file
+id=18a67687449e7d1b9f4bd6b3fb57fe9a806b0f8b59e

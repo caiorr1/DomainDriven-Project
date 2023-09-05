@@ -12,12 +12,12 @@ import java.util.List;
 	    private int tipoVeiculo;
 	    private String modeloVeiculo;
 	    private String anoVeiculo;
-	    private String pesoVeiculo;
+	    private int pesoVeiculo;
 	    private String corVeiculo;
 	    private String combustivelVeiculo;
 	    private String usuario;
 	    
-	    public Veiculo(int numeroApolice, int tipoVeiculo, String modeloVeiculo, String anoVeiculo, String pesoVeiculo, String corVeiculo, String combustivelVeiculo, String usuario) {
+	    public Veiculo(int numeroApolice, int tipoVeiculo, String modeloVeiculo, String anoVeiculo, int pesoVeiculo, String corVeiculo, String combustivelVeiculo, String usuario) {
 	    	this.numeroApolice = numeroApolice;
 	    	this.tipoVeiculo = tipoVeiculo;
 	        this.modeloVeiculo = modeloVeiculo;
@@ -32,13 +32,17 @@ import java.util.List;
 	        this.usuario = usuario;
 	    }
 	    
-	    public String getUsuarioDoacao() {
+	    public String getUsuario() {
 	        return usuario;
 
 	    }
 	    
 	    public String getModeloVeiculo() {
 	        return modeloVeiculo;
+	    }
+	    
+	    public int getTipoVeiculo() {
+	        return tipoVeiculo;
 	    }
 	    
 	    public int getNumeroApolice() {
@@ -49,7 +53,7 @@ import java.util.List;
 	        return anoVeiculo;
 	    }
 	    
-	    public String getPesoVeiculo() {
+	    public int getPesoVeiculo() {
 	        return pesoVeiculo;
 	    }
 	    
@@ -70,7 +74,7 @@ import java.util.List;
 	    public void exibirVeiculosDoUsuario(String usuario) {
 	        boolean encontrou = false;
 	        for (Veiculo veiculo : veiculoCadastrado) {
-	            if (veiculo.getUsuarioDoacao().equals(usuario)) {
+	            if (veiculo.getUsuario().equals(usuario)) {
 	                encontrou = true;
 	                System.out.println("\nNúmero da Apólice: " + veiculo.getNumeroApolice());
 	                System.out.println("Modelo do Veículo: " + veiculo.getModeloVeiculo());

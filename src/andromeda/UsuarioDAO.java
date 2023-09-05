@@ -28,4 +28,28 @@ public class UsuarioDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public boolean realizarLogin(String nomeLogin, String senhaLogin) {
+		try {
+			String sqlSelect = "SELECT * FROM usuario WHERE cpfCnpj = '" + nomeLogin + "' and senha = '" + senhaLogin + "';";
+			PreparedStatement comandoDeSelecao = conexao.prepareStatement(sqlSelect);
+			ResultSet rs = comandoDeSelecao.executeQuery();
+			
+				if(rs.first())
+				{
+					System.out.println("\nLogin bem-sucedido! Bem-vindo, " + nomeLogin + "!");
+					return true;
+			}
+				else
+				{
+					System.out.println("\nDados incorretos. Tente novamente.\n");
+					return false;
+			
+		}}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}	
+	}
+	
 }
+
+

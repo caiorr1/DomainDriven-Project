@@ -16,7 +16,7 @@ public class Andromeda {
 	    boolean finalizar = false;
 	    boolean logado = false;
 	    String usuarioLogado = "";     
-	    Veiculo veiculo = new Veiculo(1, 1,"", "", "", "", "", "");
+	    Veiculo veiculo = new Veiculo(1, 1,"", "", 1, "", "", "");
 	    
 	
         while (!finalizar) {
@@ -50,7 +50,8 @@ public class Andromeda {
                        String nomeLogin = scanner.nextLine();
                        System.out.println("Digite a senha do usuário:");
                        String senhaLogin = scanner.nextLine();
-                       logado = cadastroLogin.realizarLogin(nomeLogin, senhaLogin);
+                       UsuarioDAO  usuarioLogin = new UsuarioDAO();
+                       logado = usuarioLogin.realizarLogin(nomeLogin, senhaLogin);
                        usuarioLogado = nomeLogin;
                        break; } 
 		            
@@ -111,16 +112,17 @@ public class Andromeda {
 	                        System.out.println("Qual o modelo do Veículo?");
 	                        String modelVeiculo = scanner.nextLine();
 	                        System.out.println("Qual o peso aproximado do Veiculo?");
-	                        String pesoVeiculo = scanner.nextLine();
+	                        int pesoVeiculo = scanner.nextInt();
+	                        scanner.nextLine();
 	                        System.out.println("Qual a cor do Veiculo?");
 	                        String corVeiculo = scanner.nextLine();
 	                        System.out.println("Qual o tipo de Combustível do Veiculo?");
 	                        String combustivelVeiculo = scanner.nextLine();
 	                        int numeroApolice = random.nextInt(9000000) + 1000000;
-	                        System.out.println("Número da Apólica: " + numeroApolice);
+	                        System.out.println("Número da Apólice: " + numeroApolice);
 	                        veiculo = new Veiculo(numeroApolice, tipoVeiculo, modelVeiculo, anoVeiculo, pesoVeiculo, corVeiculo, combustivelVeiculo, usuarioLogado);
-	                        veiculo.setUsuario(usuarioLogado);
-	                        veiculo.cadastrarVeiculo(veiculo, usuarioLogado);
+	                        VeiculoDAO  veiculoDao = new VeiculoDAO();
+	                        veiculoDao.adicionar(veiculo);
 
 	                        boolean opcaoValida = false;
 	                        while (!opcaoValida) {
@@ -163,4 +165,3 @@ public class Andromeda {
 }}}
         scanner.close();
 }}
-       	 
