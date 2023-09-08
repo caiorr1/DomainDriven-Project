@@ -16,8 +16,9 @@ import java.util.List;
 	    private String corVeiculo;
 	    private String combustivelVeiculo;
 	    private String usuario;
+	    private String placaVeiculo;
 	    
-	    public Veiculo(int numeroApolice, int tipoVeiculo, String modeloVeiculo, String anoVeiculo, int pesoVeiculo, String corVeiculo, String combustivelVeiculo, String usuario) {
+	    public Veiculo(int numeroApolice, int tipoVeiculo, String modeloVeiculo, String anoVeiculo, int pesoVeiculo, String corVeiculo, String combustivelVeiculo, String usuario, String placaVeiculo) {
 	    	this.numeroApolice = numeroApolice;
 	    	this.tipoVeiculo = tipoVeiculo;
 	        this.modeloVeiculo = modeloVeiculo;
@@ -26,7 +27,12 @@ import java.util.List;
 	        this.corVeiculo = corVeiculo;
 	        this.combustivelVeiculo = combustivelVeiculo;
 	        this.usuario = usuario;
+	        this.placaVeiculo = placaVeiculo;
 	    }
+	    
+		public Veiculo() {
+			
+		}
 	    
 	    public void setUsuario(String usuario) {
 	        this.usuario = usuario;
@@ -37,33 +43,71 @@ import java.util.List;
 
 	    }
 	    
+	    public String getPlacaVeiculo() {
+	        return placaVeiculo;
+
+	    }
+	    
+		public void setPlacaVeiculo(String placaVeiculo) {
+			this.placaVeiculo = placaVeiculo;
+		}
+	    
 	    public String getModeloVeiculo() {
 	        return modeloVeiculo;
 	    }
+	    
+		public void setModeloVeiculo(String modeloVeiculo) {
+			this.modeloVeiculo = modeloVeiculo;
+		}
 	    
 	    public int getTipoVeiculo() {
 	        return tipoVeiculo;
 	    }
 	    
+		public void setTipoVeiculo(int tipoVeiculo) {
+			this.tipoVeiculo = tipoVeiculo;
+		}
+	    
 	    public int getNumeroApolice() {
 	        return numeroApolice;
 	    }
 
+		public void setNumeroApolice(int numeroApolice) {
+			this.numeroApolice = numeroApolice;
+		}
+	    
 	    public String getAnoVeiculo() {
 	        return anoVeiculo;
 	    }
+
+		public void setAnoVeiculo(String anoVeiculo) {
+			this.anoVeiculo = anoVeiculo;
+		}
 	    
 	    public int getPesoVeiculo() {
 	        return pesoVeiculo;
 	    }
 	    
+		public void setPesoVeiculo(int pesoVeiculo) {
+			this.pesoVeiculo = pesoVeiculo;
+		}
+	    
 	    public String getCorVeiculo() {
 	        return corVeiculo;
 	    }
 	    
+		public void setCorVeiculo(String corVeiculo) {
+			this.corVeiculo = corVeiculo;
+		}
+	    
 	    public String getCombustivelVeiculo() {
 	        return combustivelVeiculo;
 	    }
+	    
+		public void setCombustivelVeiculo(String combustivelVeiculo) {
+			this.combustivelVeiculo = combustivelVeiculo;
+		}
+	    
 	    
 	    public void cadastrarVeiculo(Veiculo veiculo, String usuario) {
 	        veiculo.setUsuario(usuario);
@@ -77,6 +121,7 @@ import java.util.List;
 	            if (veiculo.getUsuario().equals(usuario)) {
 	                encontrou = true;
 	                System.out.println("\nNúmero da Apólice: " + veiculo.getNumeroApolice());
+	                System.out.println("Placa do Veículo: " + veiculo.getPlacaVeiculo());
 	                System.out.println("Modelo do Veículo: " + veiculo.getModeloVeiculo());
 	                System.out.println("Ano: " + veiculo.getAnoVeiculo());
 	                System.out.println("Cor: " + veiculo.getCorVeiculo());

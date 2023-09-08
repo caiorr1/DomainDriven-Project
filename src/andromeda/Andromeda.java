@@ -1,12 +1,13 @@
 package andromeda;
 
 import java.util.Scanner;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Andromeda {
 
 	public static void main(String[] args) {
-	    CadastroLogin cadastroLogin = new CadastroLogin();
 		Scanner scanner = new Scanner(System.in);
 		Random random = new Random();
 	
@@ -15,8 +16,9 @@ public class Andromeda {
 		System.out.println("----------------------------------------------------------------------\n");
 	    boolean finalizar = false;
 	    boolean logado = false;
+	    boolean logadoModal = false;
 	    String usuarioLogado = "";     
-	    Veiculo veiculo = new Veiculo(1, 1,"", "", 1, "", "", "");
+	    Veiculo veiculo = new Veiculo(1, 1,"", "", 1, "", "", "", "");
 	    
 	
         while (!finalizar) {
@@ -29,7 +31,6 @@ public class Andromeda {
 	            switch (resposta) {
 		            case 1:
 		            	System.out.println("\nOlá, aqui você pode adicionar uma nova conta!");
-
 						String senhaPf = null, nomePf = null, enderecoPf = null, cpfCnpj = null;
 						System.out.println("Digite o seu CPF ou CNPJ (Apenas Números):");
 						cpfCnpj = scanner.nextLine();
@@ -60,10 +61,61 @@ public class Andromeda {
 		            	System.out.println("\nPara continuarmos com a solicitação, digite o seu CPF ou CNPJ:");
 		            	String nomeLogin = scanner.nextLine();
 		            	System.out.println("Digite o número da apólice:");
-		            	String senhaLogin = scanner.nextLine();
-		            	logado = cadastroLogin.realizarLogin(nomeLogin, senhaLogin);
-		            	usuarioLogado = nomeLogin;
-		            	break; } 
+		            	int numeroApolice = scanner.nextInt();
+                        scanner.nextLine();
+		            	VeiculoDAO  usuarioLogin = new VeiculoDAO();
+		            	logadoModal = usuarioLogin.realizarLoginGuincho(nomeLogin, numeroApolice);
+		            		if (logadoModal) {
+		            			System.out.println("Para continuarmos com a solicitação, digite o endereço da ocorrência:");
+		            			String enderecoOcorrencia = scanner.nextLine();
+		                        System.out.println("\nO veículo está em local de difícil acesso?");
+		                        System.out.println("1 - Sim");
+		                        System.out.println("2 - Não");
+		                        int acessoVeiculo = 0;
+		                        boolean categoriaTrue = false;
+		                        while (!categoriaTrue) {
+		                            System.out.print("Digite o número correspondente: ");
+		                            acessoVeiculo = scanner.nextInt();
+		                            scanner.nextLine();
+		                            if (acessoVeiculo >= 1 && acessoVeiculo <= 2) {
+		                                categoriaTrue = true;
+		                            } else {
+		                                System.out.println("Por favor, digite um número de 1 a 2.");
+		                            }
+		                        }
+		                        System.out.println("\nO veículo está carregando carga pesada?");
+		                        System.out.println("1 - Sim");
+		                        System.out.println("2 - Não");
+		                        int cargaVeiculo = 0;
+		                        boolean categoriaCargaTrue = false;
+		                        while (!categoriaCargaTrue) {
+		                            System.out.print("Digite o número correspondente: ");
+		                            cargaVeiculo = scanner.nextInt();
+		                            scanner.nextLine();
+		                            if (cargaVeiculo >= 1 && cargaVeiculo <= 2) {
+		                            	categoriaCargaTrue = true;
+		                            } else {
+		                                System.out.println("Por favor, digite um número de 1 a 2.");
+		                            }
+		                        }
+		            			System.out.println("Digite um telefone para contato:");
+		            			String telefoneContato = scanner.nextLine();
+		            			System.out.println("Insira uma breve descrição do ocorrido:");
+		            			String descricao = scanner.nextLine();
+		            			Modal modal = new Modal(nomeLogin, numeroApolice, enderecoOcorrencia, telefoneContato, descricao, acessoVeiculo, cargaVeiculo);
+		            			
+
+		            		}
+		            			
+
+		            	
+		            		else {
+		            	break; } }
+		            
+//	            	
+//	            	"PERGUNTAR SE TEM CARGA PESADA"
+//	            	"#ENDEREÇO DA OCORRENCIA"
+//	            	"CONTATO"
 		            
 		            case 0:
 		                finalizar = true;
@@ -107,6 +159,8 @@ public class Andromeda {
 	                            }
 	                        }
 	                        System.out.println("Agora precisamos de algumas informações para completar o cadastro.");
+	                        System.out.println("Qual a placa do Veículo?");
+	                        String placaVeiculo = scanner.nextLine();
 	                        System.out.println("Qual o ano do Veículo?");
 	                        String anoVeiculo = scanner.nextLine();
 	                        System.out.println("Qual o modelo do Veículo?");
@@ -120,7 +174,7 @@ public class Andromeda {
 	                        String combustivelVeiculo = scanner.nextLine();
 	                        int numeroApolice = random.nextInt(9000000) + 1000000;
 	                        System.out.println("Número da Apólice: " + numeroApolice);
-	                        veiculo = new Veiculo(numeroApolice, tipoVeiculo, modelVeiculo, anoVeiculo, pesoVeiculo, corVeiculo, combustivelVeiculo, usuarioLogado);
+	                        veiculo = new Veiculo(numeroApolice, tipoVeiculo, modelVeiculo, anoVeiculo, pesoVeiculo, corVeiculo, combustivelVeiculo, usuarioLogado, placaVeiculo);
 	                        VeiculoDAO  veiculoDao = new VeiculoDAO();
 	                        veiculoDao.adicionar(veiculo);
 
@@ -146,8 +200,25 @@ public class Andromeda {
 
 		                    
 		                case 2:
-		                    veiculo.exibirVeiculosDoUsuario(usuarioLogado);
+		                    VeiculoDAO veiculoDAO = new VeiculoDAO();
+		                    ArrayList<Veiculo> veiculosDoUsuario = veiculoDAO.listarTodos(usuarioLogado);
+
+		                    if (veiculosDoUsuario.isEmpty()) {
+		                        System.out.println("\nVocê não possui veículos cadastrados.\n");
+		                    } else {
+		                        System.out.println("\nVeículos cadastrados no seu nome:");
+		                        for (Veiculo v : veiculosDoUsuario) {
+		                            System.out.println("Número da Apólice: " + v.getNumeroApolice());
+		                            System.out.println("Modelo do Veículo: " + v.getModeloVeiculo());
+		                            System.out.println("Ano: " + v.getAnoVeiculo());
+		                            System.out.println("Cor: " + v.getCorVeiculo());
+		                            System.out.println("Combustível: " + v.getCombustivelVeiculo());
+		                            System.out.println("Peso: " + v.getPesoVeiculo());
+		                            System.out.println("----------------------------");
+		                        }
+		                    }
 		                    break;
+
 		                    
 	                    case 3:
 	                        logado = false;
