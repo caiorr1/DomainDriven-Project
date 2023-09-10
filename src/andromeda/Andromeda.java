@@ -60,25 +60,40 @@ public class Andromeda {
 		            	
 		            	System.out.println("\nPara continuarmos com a solicitação, digite o seu CPF ou CNPJ:");
 		            	String nomeLogin = scanner.nextLine();
-		            	System.out.println("Digite o número da apólice:");
+		            	System.out.println("\nDigite o número da apólice:");
 		            	int numeroApolice = scanner.nextInt();
                         scanner.nextLine();
 		            	VeiculoDAO  usuarioLogin = new VeiculoDAO();
 		            	logadoModal = usuarioLogin.realizarLoginGuincho(nomeLogin, numeroApolice);
 		            		if (logadoModal) {
-		            			System.out.println("Para continuarmos com a solicitação, digite o endereço da ocorrência:");
+		            			System.out.println("\nPara continuarmos com a solicitação, digite o endereço da ocorrência:");
 		            			String enderecoOcorrencia = scanner.nextLine();
+		                        System.out.println("\nSelecione o tipo de ocorrência: ");
+		                        System.out.println("1 - Acidente de trânsito");
+		                        System.out.println("2 - Falha operacional");
+		                        int tipoOcorrencia = 0;
+		                        boolean categoriaOcorrenciaTrue = false;
+		                        while (!categoriaOcorrenciaTrue) {
+		                            System.out.print("Digite o número correspondente: ");
+		                            tipoOcorrencia = scanner.nextInt();
+		                            scanner.nextLine();
+		                            if (tipoOcorrencia >= 1 && tipoOcorrencia <= 2) {
+		                            	categoriaOcorrenciaTrue = true;
+		                            } else {
+		                                System.out.println("Por favor, digite um número de 1 a 2.");
+		                            }
+		                        }
 		                        System.out.println("\nO veículo está em local de difícil acesso?");
 		                        System.out.println("1 - Sim");
 		                        System.out.println("2 - Não");
 		                        int acessoVeiculo = 0;
-		                        boolean categoriaTrue = false;
-		                        while (!categoriaTrue) {
+		                        boolean categoriaAcessoTrue = false;
+		                        while (!categoriaAcessoTrue) {
 		                            System.out.print("Digite o número correspondente: ");
 		                            acessoVeiculo = scanner.nextInt();
 		                            scanner.nextLine();
 		                            if (acessoVeiculo >= 1 && acessoVeiculo <= 2) {
-		                                categoriaTrue = true;
+		                            	categoriaAcessoTrue = true;
 		                            } else {
 		                                System.out.println("Por favor, digite um número de 1 a 2.");
 		                            }
@@ -98,24 +113,33 @@ public class Andromeda {
 		                                System.out.println("Por favor, digite um número de 1 a 2.");
 		                            }
 		                        }
-		            			System.out.println("Digite um telefone para contato:");
+		            			System.out.println("\nDigite um telefone para contato:");
 		            			String telefoneContato = scanner.nextLine();
-		            			System.out.println("Insira uma breve descrição do ocorrido:");
+		            			System.out.println("\nInsira uma breve descrição do ocorrido:");
 		            			String descricao = scanner.nextLine();
-		            			Modal modal = new Modal(nomeLogin, numeroApolice, enderecoOcorrencia, telefoneContato, descricao, acessoVeiculo, cargaVeiculo);
-		            			
-
-		            		}
-		            			
-
-		            	
+		            			Modal modal = new Modal(nomeLogin, numeroApolice, enderecoOcorrencia, tipoOcorrencia, telefoneContato, descricao, acessoVeiculo, cargaVeiculo);
+		            			System.out.println("\nPor favor, verifique as informações:\n");
+		                        modal.tipoGuincho(modal);
+		            			System.out.println("\nDados Confirmados?");
+	                            System.out.println("1 - Sim");
+	                            System.out.println("2 - Não");
+		            			int confirmacaoDados = scanner.nextInt();
+		        				scanner.nextLine(); 
+	                            if (confirmacaoDados >= 1 && confirmacaoDados <= 2) {
+	                        	    if (confirmacaoDados == 1) {
+	                        	    	System.out.println("\nDados Confirmados. O guincho será enviado para o endereço indicado, demais atualizações serão enviadas para o telefone cadastrado. Obrigado pelo contato!\n");
+	                        	    	break;
+	                        	    } else {
+	                        	    	System.out.println("\nDados não confirmados pelo usuário. Realize a solicitação novamente.\n");
+	                        	    	break;
+	                        	    }
+	                            } else {
+	                                System.out.println("Por favor, digite um número de 1 a 2.");
+	                            }
+	                        }
 		            		else {
 		            	break; } }
 		            
-//	            	
-//	            	"PERGUNTAR SE TEM CARGA PESADA"
-//	            	"#ENDEREÇO DA OCORRENCIA"
-//	            	"CONTATO"
 		            
 		            case 0:
 		                finalizar = true;
